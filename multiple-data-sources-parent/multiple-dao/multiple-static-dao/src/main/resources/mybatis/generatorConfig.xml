@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<!-- 配置生成器 -->
+<generatorConfiguration>
+
+    <!-- 引入配置文件 -->
+    <!-- <properties resource="config/db.properties" /> -->
+    <classPathEntry
+            location="libs/mysql-connector-java-5.1.39.jar"
+    />
+
+    <!-- 定义生成对象的默认值 -->
+    <context id="testTables" targetRuntime="MyBatis3">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+
+        <property name="mergeable" value="false"/>
+        <!-- 引入分页插件 -->
+        <plugin type="com.common.dao.mybatis.plugins.PaginationPlugin"></plugin>
+        <!-- 引入BaseMapper -->
+        <plugin type="com.common.dao.mybatis.plugins.BaseMapperPlugin"></plugin>
+        <!-- 生成兼容MyBatis 3.0或更高版本， 兼容JSE 5.0或更高版本的对象 -->
+        <!-- 这里引入扩展插件 -->
+        <commentGenerator>
+            <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/test2" userId="root"
+                        password="test">
+        </jdbcConnection>
+
+        <!-- 默认false，把JDBC decimal 和 numeric 类型解析为 Integer，为 true时把JDBC DECIMAL
+            和 NUMERIC 类型解析为java.math.BigDecimal -->
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+
+        <!-- targetProject:生成entity类的位置 -->
+        <javaModelGenerator targetPackage="com.statics.dao.entity"
+                            targetProject="multiple-dao/multiple-static-dao/src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+            <!-- 从数据库返回的值被清理前后的空格 -->
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <!-- targetProject:mapper映射文件生成的位置 -->
+        <sqlMapGenerator targetPackage="mapper"
+                         targetProject="multiple-dao/multiple-static-dao/src/main/resources">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </sqlMapGenerator>
+
+        <!-- targetPackage：mapper接口生成的位置 -->
+        <!-- annotatedmapper：使用注解纯接口无xml XMLMAPPER -->
+        <javaClientGenerator type="XMLMAPPER"
+                             targetPackage="com.statics.dao.mapper"
+                             targetProject="multiple-dao/multiple-static-dao/src/main/java">
+            <!-- enableSubPackages:是否让schema作为包的后缀 -->
+            <property name="enableSubPackages" value="false"/>
+        </javaClientGenerator>
+
+        <!-- 指定数据库表 -->
+        <table schema="test2" tableName="base_user">
+            <generatedKey column="id" sqlStatement="MySql"
+                          identity="true"/>
+        </table>
+    </context>
+</generatorConfiguration>

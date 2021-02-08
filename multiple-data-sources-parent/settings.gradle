@@ -1,0 +1,15 @@
+include 'multiple-api:multiple-common-api'
+include 'multiple-api:multiple-dynamic-api'
+include 'multiple-api:multiple-static-api'
+
+include 'multiple-common'
+include 'multiple-dao:multiple-common-dao'
+include 'multiple-dao:multiple-dynamic-dao'
+include 'multiple-dao:multiple-static-dao'
+include 'multiple-service:multiple-dynamic-service'
+include 'multiple-service:multiple-static-service'
+include 'multiple-vo:multiple-dynamic-vo'
+include 'multiple-vo:multiple-static-vo'
+include 'multiple-vo:multiple-common-vo'
+
+rootProject.name = 'multiple-data-sources-parent'

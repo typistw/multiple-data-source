@@ -1,0 +1,419 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.statics.dao.mapper.two.BaseUserMapper">
+  <resultMap id="BaseResultMap" type="com.statics.dao.entity.BaseUser">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="provider_id" jdbcType="INTEGER" property="providerId" />
+    <result column="auth_name" jdbcType="VARCHAR" property="authName" />
+    <result column="wechat_open_id" jdbcType="CHAR" property="wechatOpenId" />
+    <result column="mobile" jdbcType="CHAR" property="mobile" />
+    <result column="password" jdbcType="CHAR" property="password" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="age" jdbcType="TINYINT" property="age" />
+    <result column="gender" jdbcType="TINYINT" property="gender" />
+    <result column="create_ip" jdbcType="VARCHAR" property="createIp" />
+    <result column="avatar" jdbcType="VARCHAR" property="avatar" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="create_time" jdbcType="BIGINT" property="createTime" />
+    <result column="update_time" jdbcType="BIGINT" property="updateTime" />
+    <result column="identify_id" jdbcType="VARCHAR" property="identifyId" />
+    <result column="active_status" jdbcType="TINYINT" property="activeStatus" />
+    <result column="old_open_id" jdbcType="CHAR" property="oldOpenId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, provider_id, auth_name, wechat_open_id, mobile, `password`, salt, nick_name, 
+    age, gender, create_ip, avatar, `status`, create_time, update_time, identify_id, 
+    active_status, old_open_id
+  </sql>
+  <select id="selectByExample" parameterType="com.statics.dao.entity.BaseUserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from base_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0">
+       limit ${limitStart} , ${limitLength}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_user
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from base_user
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.statics.dao.entity.BaseUserExample">
+    delete from base_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.statics.dao.entity.BaseUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into base_user (provider_id, auth_name, wechat_open_id, 
+      mobile, `password`, salt, nick_name, 
+      age, gender, create_ip, 
+      avatar, `status`, create_time, 
+      update_time, identify_id, active_status, 
+      old_open_id)
+    values (#{providerId,jdbcType=INTEGER}, #{authName,jdbcType=VARCHAR}, #{wechatOpenId,jdbcType=CHAR}, 
+      #{mobile,jdbcType=CHAR}, #{password,jdbcType=CHAR}, #{salt,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{age,jdbcType=TINYINT}, #{gender,jdbcType=TINYINT}, #{createIp,jdbcType=VARCHAR}, 
+      #{avatar,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{createTime,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=BIGINT}, #{identifyId,jdbcType=VARCHAR}, #{activeStatus,jdbcType=TINYINT}, 
+      #{oldOpenId,jdbcType=CHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.statics.dao.entity.BaseUser">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into base_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="providerId != null">
+        provider_id,
+      </if>
+      <if test="authName != null">
+        auth_name,
+      </if>
+      <if test="wechatOpenId != null">
+        wechat_open_id,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="password != null">
+        `password`,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="nickName != null">
+        nick_name,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="createIp != null">
+        create_ip,
+      </if>
+      <if test="avatar != null">
+        avatar,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="identifyId != null">
+        identify_id,
+      </if>
+      <if test="activeStatus != null">
+        active_status,
+      </if>
+      <if test="oldOpenId != null">
+        old_open_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="providerId != null">
+        #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="authName != null">
+        #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOpenId != null">
+        #{wechatOpenId,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=CHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="createIp != null">
+        #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="identifyId != null">
+        #{identifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="activeStatus != null">
+        #{activeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="oldOpenId != null">
+        #{oldOpenId,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.statics.dao.entity.BaseUserExample" resultType="java.lang.Long">
+    select count(*) from base_user
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update base_user
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.providerId != null">
+        provider_id = #{record.providerId,jdbcType=INTEGER},
+      </if>
+      <if test="record.authName != null">
+        auth_name = #{record.authName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.wechatOpenId != null">
+        wechat_open_id = #{record.wechatOpenId,jdbcType=CHAR},
+      </if>
+      <if test="record.mobile != null">
+        mobile = #{record.mobile,jdbcType=CHAR},
+      </if>
+      <if test="record.password != null">
+        `password` = #{record.password,jdbcType=CHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null">
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=TINYINT},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=TINYINT},
+      </if>
+      <if test="record.createIp != null">
+        create_ip = #{record.createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="record.avatar != null">
+        avatar = #{record.avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null">
+        `status` = #{record.status,jdbcType=TINYINT},
+      </if>
+      <if test="record.createTime != null">
+        create_time = #{record.createTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null">
+        update_time = #{record.updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="record.identifyId != null">
+        identify_id = #{record.identifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activeStatus != null">
+        active_status = #{record.activeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="record.oldOpenId != null">
+        old_open_id = #{record.oldOpenId,jdbcType=CHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update base_user
+    set id = #{record.id,jdbcType=INTEGER},
+      provider_id = #{record.providerId,jdbcType=INTEGER},
+      auth_name = #{record.authName,jdbcType=VARCHAR},
+      wechat_open_id = #{record.wechatOpenId,jdbcType=CHAR},
+      mobile = #{record.mobile,jdbcType=CHAR},
+      `password` = #{record.password,jdbcType=CHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=TINYINT},
+      gender = #{record.gender,jdbcType=TINYINT},
+      create_ip = #{record.createIp,jdbcType=VARCHAR},
+      avatar = #{record.avatar,jdbcType=VARCHAR},
+      `status` = #{record.status,jdbcType=TINYINT},
+      create_time = #{record.createTime,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=BIGINT},
+      identify_id = #{record.identifyId,jdbcType=VARCHAR},
+      active_status = #{record.activeStatus,jdbcType=TINYINT},
+      old_open_id = #{record.oldOpenId,jdbcType=CHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.statics.dao.entity.BaseUser">
+    update base_user
+    <set>
+      <if test="providerId != null">
+        provider_id = #{providerId,jdbcType=INTEGER},
+      </if>
+      <if test="authName != null">
+        auth_name = #{authName,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatOpenId != null">
+        wechat_open_id = #{wechatOpenId,jdbcType=CHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=CHAR},
+      </if>
+      <if test="password != null">
+        `password` = #{password,jdbcType=CHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null">
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=TINYINT},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=TINYINT},
+      </if>
+      <if test="createIp != null">
+        create_ip = #{createIp,jdbcType=VARCHAR},
+      </if>
+      <if test="avatar != null">
+        avatar = #{avatar,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        `status` = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=BIGINT},
+      </if>
+      <if test="identifyId != null">
+        identify_id = #{identifyId,jdbcType=VARCHAR},
+      </if>
+      <if test="activeStatus != null">
+        active_status = #{activeStatus,jdbcType=TINYINT},
+      </if>
+      <if test="oldOpenId != null">
+        old_open_id = #{oldOpenId,jdbcType=CHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.statics.dao.entity.BaseUser">
+    update base_user
+    set provider_id = #{providerId,jdbcType=INTEGER},
+      auth_name = #{authName,jdbcType=VARCHAR},
+      wechat_open_id = #{wechatOpenId,jdbcType=CHAR},
+      mobile = #{mobile,jdbcType=CHAR},
+      `password` = #{password,jdbcType=CHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      age = #{age,jdbcType=TINYINT},
+      gender = #{gender,jdbcType=TINYINT},
+      create_ip = #{createIp,jdbcType=VARCHAR},
+      avatar = #{avatar,jdbcType=VARCHAR},
+      `status` = #{status,jdbcType=TINYINT},
+      create_time = #{createTime,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=BIGINT},
+      identify_id = #{identifyId,jdbcType=VARCHAR},
+      active_status = #{activeStatus,jdbcType=TINYINT},
+      old_open_id = #{oldOpenId,jdbcType=CHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

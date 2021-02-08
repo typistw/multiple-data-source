@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        maven { url "https://repo.spring.io/release" }
+        mavenCentral()
+        jcenter()
+        mavenLocal()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'org.springframework.boot'
+
+repositories {
+    maven { url "https://repo.spring.io/milestone" }
+    mavenCentral()
+}
+
+def releaseTime() {
+    return new Date().format("yyyyMMddHHmmss", TimeZone.getTimeZone("UTC"))
+}
+
+jar{
+    baseName = "multiple-dynamic-api"
+    version ="0.0.1-SNAPSHOT-"+releaseTime()
+}
+
+dependencies {
+    compile project(':multiple-service:multiple-dynamic-service')
+    compile project(':multiple-api:multiple-common-api')
+}

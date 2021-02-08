@@ -1,0 +1,3 @@
+dependencies {
+    compile project(':multiple-dao:multiple-static-dao')
+}

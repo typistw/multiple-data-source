@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':multiple-common')
+    compile project(':multiple-vo:multiple-common-vo')
+}

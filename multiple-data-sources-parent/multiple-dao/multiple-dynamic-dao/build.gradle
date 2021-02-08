@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':multiple-vo:multiple-dynamic-vo')
+    compile project(':multiple-dao:multiple-common-dao')
+}

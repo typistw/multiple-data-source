@@ -1,0 +1,6 @@
+dependencies {
+//    compile project(':saas-agent-service:common-agent-service')
+//    compile project(':saas-agent-dao:common-agent-dao')
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+//    compile group: 'org.springframework.boot', name: 'spring-boot-starter'
+}
