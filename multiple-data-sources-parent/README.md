@@ -58,7 +58,7 @@
 ## swagger文档地址
     http://localhost:port/doc.html
 
-## 生成数据操作代码
+## 生成数据库操作代码
 - 查找对应 `generatorCOnfig.xml`配置文件，修改`jdbcConnection`和`table`配置
 - 查找对应的 `MybatisRunner`类， 运行`main`函数
 
