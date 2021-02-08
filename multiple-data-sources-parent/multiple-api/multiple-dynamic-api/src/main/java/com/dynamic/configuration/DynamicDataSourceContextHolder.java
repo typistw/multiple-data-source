@@ -27,7 +27,7 @@ public class DynamicDataSourceContextHolder {
     /**
      *  数据源key集合
      */
-    public static List<Object> dataSourceKeys = new ArrayList<>();
+    private static List<Object> dataSourceKeys = new ArrayList<>();
 
     /**
      * 切换数据源
