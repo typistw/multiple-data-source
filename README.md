@@ -4,7 +4,7 @@
 # 项目简介
 ## 组织结构
  ```
- multipkle-data-source-parent
+ multiple-data-source-parent
  ├── multiple-api -- 接口入口
  ├── multiple-common -- 工具类及普通代码
  ├── multiple-dao -- MybatisRunner生成的数据库操作代码
